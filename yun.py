@@ -141,7 +141,6 @@ class Main_window(QtWidgets.QMainWindow):
         self.listWidget.addItem(self.sheets)
         self.listWidget.addItem(self.prefer)
         self.left_layout.addWidget(self.listWidget)
-        self.left_layout.addWidget(self.listWidget)
 
         self.last = QtWidgets.QPushButton('上一首', self.Main_Window)
         self.last.setGeometry(QtCore.QRect(230, 230, 75, 23))
