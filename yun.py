@@ -226,6 +226,7 @@ class Main_window(QtWidgets.QMainWindow):
         self.songs = QtWidgets.QPushButton('播放列表', self.Main_Window)
         self.songs.setObjectName("pushButton")
 
+
         # self.statusbar.addWidget(self.last)
         # self.statusbar.addWidget(self.play)
         # self.statusbar.addWidget(self.next)
