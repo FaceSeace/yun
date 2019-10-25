@@ -226,17 +226,17 @@ class Main_window(QtWidgets.QMainWindow):
         self.songs = QtWidgets.QPushButton('播放列表', self.Main_Window)
         self.songs.setObjectName("pushButton")
 
-        self.statusbar.addWidget(self.last)
-        self.statusbar.addWidget(self.play)
-        self.statusbar.addWidget(self.next)
-        self.statusbar.addWidget(self.progress_text)
-        self.statusbar.addWidget(self.progress)
-        self.statusbar.addWidget(self.times)
-        self.statusbar.addWidget(self.volume_ico)
-        self.statusbar.addWidget(self.volume)
-        self.statusbar.addWidget(self.mode)
-        self.statusbar.addWidget(self.words)
-        self.statusbar.addWidget(self.songs)
+        # self.statusbar.addWidget(self.last)
+        # self.statusbar.addWidget(self.play)
+        # self.statusbar.addWidget(self.next)
+        # self.statusbar.addWidget(self.progress_text)
+        # self.statusbar.addWidget(self.progress)
+        # self.statusbar.addWidget(self.times)
+        # self.statusbar.addWidget(self.volume_ico)
+        # self.statusbar.addWidget(self.volume)
+        # self.statusbar.addWidget(self.mode)
+        # self.statusbar.addWidget(self.words)
+        # self.statusbar.addWidget(self.songs)
 
         _translate = QtCore.QCoreApplication.translate
 
