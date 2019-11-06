@@ -134,6 +134,8 @@ class newtime(QtCore.QThread):
             if pos == -1:
                 self.mainwindow.play.setText('播放')
                 pos = 0
+            if pos < 0:
+                pos = 0
             # elif pos >=0:
             #     self.mainwindow.play.setText('暂停')
             #     # self.time.emit(str(int(ex.audio.info.length // 1)) + "/" + str(int(ex.audio.info.length // 1)))
@@ -198,13 +200,12 @@ class yunui(yun.Main_window):
         self.last.clicked.connect(self.lastsong)
         self.next.clicked.connect(self.nextsong)
         self.mode.clicked.connect(self.changemode)
-        self.rank_table.itemDoubleClicked.connect(self.test)
+        self.rank_table.itemDoubleClicked.connect(self.doubleclick)
 
         self.mode.setText('列表循环')
 
         self.showtime = newtime(self)
         self.showtime.time.connect(self.timechange)
-        self.showtime.time.connect(self.changemusic)
         self.showtime.process.connect(self.updateprocess)
 
         newItem = QTableWidgetItem('操作')
@@ -238,9 +239,43 @@ class yunui(yun.Main_window):
         newItem = QTableWidgetItem('你猜')
         self.rank_table.setItem(2, 4, newItem)
 
-    def test(self):
+        self.rank_table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.rank_table.customContextMenuRequested.connect(self.generateMenu)
+
+    def generateMenu(self, pos):
+        row_num = -1
+        a = QtCore.QPoint(pos.x()+30, pos.y()+25)
+        for i in self.rank_table.selectionModel().selection().indexes():
+            row_num = i.row()
+
+        if row_num < 3:
+            menu = QMenu()
+            item1 = menu.addAction(u"没有稍后放")
+            item2 = menu.addAction(u"现在放")
+            item3 = menu.addAction(u"这是个啥")
+            action = menu.exec_(self.rank_table.mapToGlobal(a))
+            if action == item2:
+                self.volume.setValue(om.getvolum() * 100)
+                self.file = r'F:\Users\Administrator\PycharmProjects\yun\music' + '\\%s' % \
+                            self.rank_table.selectedItems()[1].text() + '.mp3'
+                om.start_at_local(self.file)
+                self.runtheard()
+                self.play.setText('暂停')
+
+            elif action == item1:
+                print('当前行文字内容是：', self.rank_table.item(row_num, 0).text(),
+                      self.rank_table.item(row_num, 1).text(), self.rank_table.item(row_num, 2).text())
+
+            elif action == item3:
+                print('当前行文字内容是：', self.rank_table.item(row_num, 0).text(),
+                      self.rank_table.item(row_num, 1).text(), self.rank_table.item(row_num, 2).text())
+            else:
+                return
+
+    def doubleclick(self):
         self.file = r'F:\Users\Administrator\PycharmProjects\yun\music' + '\\%s' % self.rank_table.selectedItems()[1].text() + '.mp3'
         om.start_at_local(self.file)
+        self.volume.setValue(om.getvolum() * 100)
         self.runtheard()
         self.play.setText('暂停')
 
@@ -269,6 +304,7 @@ class yunui(yun.Main_window):
     def pause(self):
         if om.isplay():
             om.music_pause()
+        print(1)
 
     def updateprocess(self, process):
         #print('@', process, self.progress.flag)
@@ -306,6 +342,7 @@ class yunui(yun.Main_window):
 
     def changemusic(self):
         self.play.setText('暂停')
+        print(2)
         len = int(om.audio.info.length)
         self.progress.setMaximum(len)
         time = self.totime(len)
