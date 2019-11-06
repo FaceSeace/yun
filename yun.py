@@ -202,9 +202,9 @@ class Main_window(QtWidgets.QMainWindow):
         self.progress_text.setObjectName("label")
         self.progress_text.setFixedWidth(30)
 
-        self.progress = QtWidgets.QSlider(self.Main_Window)
-        self.progress.setOrientation(QtCore.Qt.Horizontal)
-        self.progress.setObjectName("horizontalSlider")
+        # self.progress = QtWidgets.QSlider(self.Main_Window)
+        # self.progress.setOrientation(QtCore.Qt.Horizontal)
+        # self.progress.setObjectName("horizontalSlider")
 
         self.times = QtWidgets.QLabel('1:1', self.Main_Window)
         self.times.setObjectName("label")
@@ -213,9 +213,9 @@ class Main_window(QtWidgets.QMainWindow):
         self.volume_ico = QtWidgets.QPushButton('声音', self.Main_Window)
         self.volume_ico.setObjectName("pushButton")
 
-        self.volume = QtWidgets.QSlider(self.Main_Window)
-        self.volume.setOrientation(QtCore.Qt.Horizontal)
-        self.volume.setObjectName("horizontalSlider")
+        # self.volume = QtWidgets.QSlider(self.Main_Window)
+        # self.volume.setOrientation(QtCore.Qt.Horizontal)
+        # self.volume.setObjectName("horizontalSlider")
 
         self.mode = QtWidgets.QPushButton('模式', self.Main_Window)
         self.mode.setObjectName("pushButton")

@@ -198,6 +198,7 @@ class yunui(yun.Main_window):
         self.last.clicked.connect(self.lastsong)
         self.next.clicked.connect(self.nextsong)
         self.mode.clicked.connect(self.changemode)
+        self.rank_table.itemDoubleClicked.connect(self.test)
 
         self.mode.setText('列表循环')
 
@@ -206,6 +207,43 @@ class yunui(yun.Main_window):
         self.showtime.time.connect(self.changemusic)
         self.showtime.process.connect(self.updateprocess)
 
+        newItem = QTableWidgetItem('操作')
+        self.rank_table.setItem(0, 0, newItem)
+        newItem = QTableWidgetItem('操作')
+        self.rank_table.setItem(1, 0, newItem)
+        newItem = QTableWidgetItem('操作')
+        self.rank_table.setItem(2, 0, newItem)
+        newItem = QTableWidgetItem('123')
+        self.rank_table.setItem(0, 1, newItem)
+        newItem = QTableWidgetItem('456')
+        self.rank_table.setItem(1, 1, newItem)
+        newItem = QTableWidgetItem('789')
+        self.rank_table.setItem(2, 1, newItem)
+        newItem = QTableWidgetItem('不是我')
+        self.rank_table.setItem(0, 2, newItem)
+        newItem = QTableWidgetItem('不是你')
+        self.rank_table.setItem(1, 2, newItem)
+        newItem = QTableWidgetItem('不是他')
+        self.rank_table.setItem(2, 2, newItem)
+        newItem = QTableWidgetItem('无')
+        self.rank_table.setItem(0, 3, newItem)
+        newItem = QTableWidgetItem('无')
+        self.rank_table.setItem(1, 3, newItem)
+        newItem = QTableWidgetItem('无')
+        self.rank_table.setItem(2, 3, newItem)
+        newItem = QTableWidgetItem('你猜')
+        self.rank_table.setItem(0, 4, newItem)
+        newItem = QTableWidgetItem('你猜')
+        self.rank_table.setItem(1, 4, newItem)
+        newItem = QTableWidgetItem('你猜')
+        self.rank_table.setItem(2, 4, newItem)
+
+    def test(self):
+        self.file = r'F:\Users\Administrator\PycharmProjects\yun\music' + '\\%s' % self.rank_table.selectedItems()[1].text() + '.mp3'
+        om.start_at_local(self.file)
+        self.runtheard()
+        self.play.setText('暂停')
+
     def runtheard(self):
         if not self.tstarted:
             self.showtime.start()
@@ -213,6 +251,7 @@ class yunui(yun.Main_window):
         self.tstarted = True
 
     def switch_change(self):
+        self.volume.setValue(om.getvolum()*100)
         if self.play.text() == '播放':
             self.start_or_continue()
             self.play.setText('暂停')
@@ -265,7 +304,7 @@ class yunui(yun.Main_window):
         except:
             pass
 
-    def changemusic(self,temp):
+    def changemusic(self):
         self.play.setText('暂停')
         len = int(om.audio.info.length)
         self.progress.setMaximum(len)
